@@ -1,0 +1,21 @@
+
+<div class="home-container">
+    <app-toolbar></app-toolbar>
+
+    <div class="carousel-container">
+        <carousel>
+            @for (item of sliders; track $index) {
+                <slide>
+                    <img class="img-slider" src={{item.image}}>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1> {{ item.title }} </h1>
+                        <p>{{ item.text }}</p>
+                    </div>
+                </slide>
+            }
+        </carousel>
+    </div>
+
+    
+   
+</div>

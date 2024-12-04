@@ -1,0 +1,31 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar{
+  background: none;
+}
+
+mat-toolbar button{
+  padding: 3px 20px;
+  height: auto;
+  margin-left: 14px;
+}
+
+mat-toolbar .btn-entrar{
+  background-color: #ffffff;
+  color: #000000;
+  transition-duration: 2s !important;
+}
+mat-toolbar .btn-entrar:hover{
+  background-color: #ffffffa8 ;
+}
+
+.logo-svg svg{
+  width: 148px;
+  fill: rgb(229, 9, 20);
+}
+
+mat-toolbar .btn-ling{
+  background-color: #000000;
+}

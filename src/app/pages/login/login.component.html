@@ -1,0 +1,35 @@
+<section class="login-componet">
+    <mat-card class="login">
+        <div class="form-container">
+            <mat-card-header>
+                <mat-card-title *ngIf="true"> <strong> Login </strong> </mat-card-title>
+            </mat-card-header>
+            <form [formGroup]="loginForm">
+                <mat-card-content>
+                    <mat-form-field appearance="outline">
+                        <mat-label> E-mail </mat-label>
+                        <input formControlName="email" matInput type="email" placeholder="Digite seu e-mail">
+                        <mat-error *ngIf="loginForm.get('email')?.hasError('required')"> O campo de e-mail é obrigatório. </mat-error>
+                        <mat-error *ngIf="loginForm.get('email')?.hasError('email')"> Digite um endereço de e-mail válido. </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label> Senha </mat-label>
+                        <input formControlName="senha" matInput type="password" placeholder="Digite sua senha">
+                        <mat-error *ngIf="loginForm.get('senha')?.hasError('required')"> O campo de senha é obrigatório. </mat-error>
+                        <mat-error *ngIf="loginForm.get('senha')?.hasError('minlength')"> A senha deve ter no minimo 6 caracter. </mat-error>
+                    </mat-form-field>
+                    
+                    <mat-card-actions>
+                        <button [disabled]="loginForm.invalid" mat-flat-button	(click)="onLogin()"> Acessar conta </button>
+                    </mat-card-actions>
+                    <p>
+                        Ainda não possui conta?
+                        <a routerLink="/cadastro"> Click </a>
+                        arqui para se cadastrar
+                    </p>
+                </mat-card-content>
+            </form>
+        </div>
+    </mat-card>
+</section>

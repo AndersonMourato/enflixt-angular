@@ -1,0 +1,31 @@
+.home-container{
+    position: relative;
+    padding: 18px 35px 0 35px;
+    height: 95vh;
+    overflow: hidden;
+    background-color:#2708087d;
+}
+.carousel-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+.img-slider{
+    width: 93vw;
+    height: 80vh;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    border: solid 3px rgba(255, 255, 255, 0.767);
+    border-style: ridge;
+}
+.carousel-caption{
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.434);
+}
+.carousel-caption h1{
+    font-weight: bold;
+}
+.carousel-caption p{
+    font-weight: 500;
+}
