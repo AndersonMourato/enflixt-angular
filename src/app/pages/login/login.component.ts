@@ -5,12 +5,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModelsModule } from '../../shared/models/models.module';
 import Swal from 'sweetalert2'
 import { TokenService } from '../../core/services/token.service';
+import { BackgroundImgComponent } from "../../shared/components/background-img/background-img.component";
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ModelsModule],
+  imports: [ModelsModule, BackgroundImgComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

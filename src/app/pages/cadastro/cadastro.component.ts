@@ -4,12 +4,13 @@ import { AutenticacaoService } from '../../core/services/autenticacao.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModelsModule } from '../../shared/models/models.module';
 import Swal from 'sweetalert2'
+import { BackgroundImgComponent } from "../../shared/components/background-img/background-img.component";
 
 
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [ModelsModule],
+  imports: [ModelsModule, BackgroundImgComponent],
   templateUrl: './cadastro.component.html',
   styleUrl: './cadastro.component.scss'
 })
