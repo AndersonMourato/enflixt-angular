@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AutenticacaoService } from '../../core/services/autenticacao.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ModelsModule } from '../../shared/models/models.module';
+import { ModelsModule } from '../../shared/shared.module';
 import Swal from 'sweetalert2'
 import { TokenService } from '../../core/services/token.service';
 import { BackgroundImgComponent } from "../../shared/components/background-img/background-img.component";

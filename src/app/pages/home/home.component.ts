@@ -4,7 +4,10 @@ import { MatCardModule } from '@angular/material/card'
 import { MatSliderModule } from '@angular/material/slider'
 import { CarouselModule } from 'ngx-bootstrap/carousel'
 import { ToolbarComponent } from '../../shared/components/toolbar/toolbar.component';
-
+import { APIService } from '../../core/services/api.service';
+import { SectionCarouselComponent } from '../../shared/components/section-carousel/section-carousel.component';
+import { IMidia, IMovie, IMovieInfo } from '../../shared/models/movie.interface';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -12,14 +15,19 @@ import { ToolbarComponent } from '../../shared/components/toolbar/toolbar.compon
   standalone: true,
   imports: [
     ToolbarComponent,
+    SectionCarouselComponent,
     MatCardModule,
     MatSliderModule,
-    CarouselModule
+    CarouselModule,
+    CommonModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
+
+  movies!: IMovieInfo[]
+  teste!: string
 
   sliders = [
   {
@@ -40,7 +48,72 @@ export class HomeComponent implements OnInit {
 
 ]
 
+constructor(private api: APIService){}
+
 ngOnInit() {
+
+  // this.api.getPopularFilms().subscribe({
+  //   next: (resp)=>{
+  //     console.log(resp);
+  //   },
+  //   error(err){
+  //     console.log("ERRROOOOORRRR!!!!!!")
+  //     console.log(err)
+  //   }
+  // })
+
+
+
+  // this.api.getById(1035048).subscribe({
+  //   next: (resp)=>{
+  //     console.log(resp);
+  //     this.movies = resp.results as IMovie[];
+  //     console.log(this.movies);
+  //   },
+  //   error(err){
+  //     console.log("ERRROOOOORRRR!!!!!!")
+  //     console.log(err)
+  //   }
+  // })
+
+
+  // this.api.getByDescricao('Veloz').subscribe({
+  //   next: (resp)=>{
+  //     this.movies = resp.results as IMovie[];
+  //     console.log(this.movies);
+  //   },
+  //   error(err){
+  //     console.log("ERRROOOOORRRR!!!!!!")
+  //     console.log(err)
+  //   }
+  // })
+
+  
+  this.api.getPopulars().subscribe({
+    next: (resp)=>{
+
+      this.movies = resp.results as IMovieInfo[];
+      console.log(this.movies);
+
+      
+      // console.log(
+      //   this.api.getMidia(this.movies[2])
+      // )
+
+      this.api.getMidia(this.movies[2]).subscribe({
+        next: (resp) => {
+          this.teste = resp.clip
+        }
+      })
+      
+    },
+    error(err){
+      console.log("ERRROOOOORRRR!!!!!!")
+      console.log(err)
+    }
+  })
+  
+
 }
 
 activeSlider(ev: Event){
@@ -48,3 +121,5 @@ activeSlider(ev: Event){
 }
 
 }
+
+

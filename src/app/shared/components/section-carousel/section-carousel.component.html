@@ -1,0 +1,18 @@
+<section class="section-films">
+
+    <h5>
+        Princioais recomendações
+    </h5>
+    <carousel 
+        [itemsPerSlide]="itemsPerSlide"
+        [singleSlideOffset]="singleSlideOffset"
+        [startFromIndex]="6"
+        [interval]="0">
+        <slide *ngFor="let slide of slides; let index=index">
+            <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">
+            <div class="carousel-caption">
+                <h4>Slide {{index}}</h4>
+            </div>
+        </slide>
+    </carousel>
+</section>
