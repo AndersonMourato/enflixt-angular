@@ -1,24 +1,26 @@
 <div class="container-full">
 
-    <h1> TESTE: {{ teste }}</h1>
-    
     <section class="home">
         <app-toolbar></app-toolbar>
 
         <div class="carousel-container">
             <carousel>
                 @for (item of sliders; track $index) {
-                    <slide>
-                        <img class="img-slider" src={{item.image}}>
-                        <div class="carousel-caption d-none d-md-block">
+                <slide>
+                    <img class="img-slider" src={{item.image}}>
+                    <div class="carousel-caption d-none d-md-block">
                         <h1> {{ item.title }} </h1>
                         <p>{{ item.text }}</p>
                     </div>
                 </slide>
-            }
-        </carousel>
-    </div>
-</section>
+                }
+            </carousel>
+        </div>
+    </section>
 
-<app-section-carousel></app-section-carousel>
+    <app-section-carousel title="Últimos Lançamentos" [itemsSlide]="moviesLancamentos"></app-section-carousel>
+
+    <app-section-carousel title="Mais Populares" [itemsSlide]="moviesPopular"></app-section-carousel>
+
+
 </div>

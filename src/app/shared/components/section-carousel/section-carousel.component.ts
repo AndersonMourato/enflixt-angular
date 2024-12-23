@@ -1,29 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { IMovieInfo } from '../../models/movie.interface';
+import { LimitTextPipe } from "../../pips/limit-text.pipe";
 
 @Component({
   selector: 'app-section-carousel',
   standalone: true,
-  imports: [CarouselModule],
+  imports: [CarouselModule, CommonModule, LimitTextPipe],
   templateUrl: './section-carousel.component.html',
   styleUrl: './section-carousel.component.scss'
 })
-export class SectionCarouselComponent {
 
-  itemsPerSlide = 5;  
+export class SectionCarouselComponent{
+
+  itemsPerSlide = 5;
   singleSlideOffset = true;
- 
-  slides = [
-    {image: 'assets/images/nature/1.jpg'},
-    {image: 'assets/images/nature/2.jpg'},
-    {image: 'assets/images/nature/3.jpg'},
-    {image: 'assets/images/nature/4.jpg'},
-    {image: 'assets/images/nature/5.jpg'},
-    {image: 'assets/images/nature/6.jpg'},
-    {image: 'assets/images/nature/7.jpg'},
-    {image: 'assets/images/nature/8.jpg'},
-    {image: 'assets/images/nature/1.jpg'},
-    {image: 'assets/images/nature/2.jpg'}
-  ];
+  noWrap = true;
+
+  isHover: boolean = false;
+  itemIndex!: number;
+
+  @Input() itemsSlide: IMovieInfo[] = [];
+  @Input() title: string = "";
+
+
+
+  onClick(movie: IMovieInfo) {
+    console.log(movie)
+  }
+
+  setIsHover(index: number) {
+    this.itemIndex = index;
+    this.isHover ? this.isHover = false : this.isHover = true
+  }
 
 }

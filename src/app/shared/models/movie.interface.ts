@@ -15,6 +15,7 @@ export interface IMovieInfo {
     video: boolean,
     vote_average: number,
     vote_count: number,
+    midia?: IMidia
 }
 
 export interface IMovie {

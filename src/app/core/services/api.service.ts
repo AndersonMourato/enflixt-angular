@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { tmdbAPI } from '../../../environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { filter, map, Observable } from 'rxjs';
+import { filter, map, mergeMap, Observable, tap } from 'rxjs';
 import { IMidia, IMovie, IMovieInfo } from '../../shared/models/movie.interface';
 
 const baseUrl = {
@@ -24,12 +24,14 @@ export class APIService {
 
   constructor(private http: HttpClient) { }
 
-  getPopulars(): Observable<any> {
+  getPopulars(): Observable<IMovieInfo[]> {
     return this.http.get<any>(`${baseUrl.api}/movie/popular`, { params: params, headers: this.getHeaders() })
+    .pipe(map(resp => resp.results))
   }
 
-  getLancamentos(): Observable<any> {
+  getLancamentos(): Observable<IMovieInfo[]> {
     return this.http.get<any>(`${baseUrl.api}/movie/now_playing`, { params: params, headers: this.getHeaders() })
+    .pipe(map(resp => resp.results))
   }
 
   getById(id: number): Observable<any> {
