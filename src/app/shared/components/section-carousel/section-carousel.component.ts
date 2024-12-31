@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { IMovieInfo } from '../../models/movie.interface';
 import { LimitTextPipe } from "../../pips/limit-text.pipe";
@@ -13,23 +13,23 @@ import { LimitTextPipe } from "../../pips/limit-text.pipe";
 })
 
 export class SectionCarouselComponent{
-
-  itemsPerSlide = 5;
+  
   singleSlideOffset = true;
   noWrap = true;
-
+  
   isHover: boolean = false;
   itemIndex!: number;
-
+  
+  @Input() title!: string;
+  @Input() itemsPerSlide!: number;
   @Input() itemsSlide: IMovieInfo[] = [];
-  @Input() title: string = "";
 
-
-
+  constructor() { }
+  
   onClick(movie: IMovieInfo) {
     console.log(movie)
   }
-
+  
   setIsHover(index: number) {
     this.itemIndex = index;
     this.isHover ? this.isHover = false : this.isHover = true

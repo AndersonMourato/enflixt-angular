@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card'
-import { MatSliderModule } from '@angular/material/slider'
-import { CarouselModule } from 'ngx-bootstrap/carousel'
-import { ToolbarComponent } from '../../shared/components/toolbar/toolbar.component';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatSliderModule } from '@angular/material/slider';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { forkJoin, map, mergeMap } from 'rxjs';
 import { APIService } from '../../core/services/api.service';
 import { SectionCarouselComponent } from '../../shared/components/section-carousel/section-carousel.component';
+import { ToolbarComponent } from '../../shared/components/toolbar/toolbar.component';
 import { IMovieInfo } from '../../shared/models/movie.interface';
-import { CommonModule } from '@angular/common';
-import { forkJoin, map, mergeMap } from 'rxjs';
 
 
 @Component({
@@ -29,6 +29,8 @@ export class HomeComponent implements OnInit {
 
   moviesPopular!: IMovieInfo[]
   moviesLancamentos!: IMovieInfo[]
+
+  itemsPerSlide = 3;
 
 
   sliders = [
@@ -52,7 +54,29 @@ export class HomeComponent implements OnInit {
 
   constructor(private api: APIService) { }
 
+  
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.updateItemsPerSlide();
+  }
+  
+  updateItemsPerSlide() {
+    const width = window.innerWidth;
+    if (width < 576) {
+      this.itemsPerSlide = 1;
+    } else if (width >= 576 && width < 768) {
+      this.itemsPerSlide = 2;
+    } else if (width >= 768 && width < 992) {
+      this.itemsPerSlide = 3;
+    } else if (width >= 992 && width < 1200) {
+      this.itemsPerSlide = 4;
+    } else {
+      this.itemsPerSlide = 5;
+    }
+  }
+
   ngOnInit() {
+    this.updateItemsPerSlide()
 
     this.api.getPopulars()
       .pipe(

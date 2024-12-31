@@ -21,10 +21,10 @@ export class LoginComponent implements OnInit {
 
 
   constructor(
-    private autenticacaoService: AutenticacaoService, 
+    private autenticacaoService: AutenticacaoService,
     private tokenService: TokenService,
     private router: Router
-  ){}
+  ) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -34,22 +34,22 @@ export class LoginComponent implements OnInit {
 
   }
 
-  onLogin(){
+  onLogin() {
     this.autenticacaoService.signInAcount(this.loginForm.value.email, this.loginForm.value.senha)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      user.getIdToken()
-      .then((value)=> {
-        this.tokenService.setToken(value)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        user.getIdToken()
+          .then((value) => { 
+            this.tokenService.setToken(value);
+            this.router.navigate(['/home']);
+          })
       })
-      this.router.navigate(['/home']);
-    })
-    .catch((error) => {
-      Swal.fire({
-        title: "Inválido",
-        text: "Certifique-se a senha ou e-mail está correto.",
-        icon: "error"
+      .catch((error) => {
+        Swal.fire({
+          title: "Inválido",
+          text: "Certifique-se a senha ou e-mail está correto.",
+          icon: "error"
+        });
       });
-    });
   }
 }

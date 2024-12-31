@@ -1,20 +1,26 @@
 <section class="section-films">
-
-    <h5> {{ title +" "+ isHover }} </h5>
-    <carousel class="carousel-container" [itemsPerSlide]="itemsPerSlide" [singleSlideOffset]="singleSlideOffset"
-        [startFromIndex]="6" [interval]="0" [noWrap]="noWrap" [showIndicators]="false">
-        @for (item of itemsSlide; track $index) {
-        <slide class="carousel-item" (mouseup)="onClick(item)" (mouseenter)="setIsHover($index)"
-            (mouseleave)="setIsHover($index)">
-            <img [src]="item.midia?.imgBig" alt="item.title">
-            <div class="carousel-caption" 
-                [ngClass]="{
-                    'hover-item-caption': isHover && itemIndex === $index,
-                }">
-                <span class="title"> {{item.title}} </span>
-                <p class="paragraph" *ngIf="isHover && itemIndex === $index">{{ item.overview | limitText: 50 }} </p>
-            </div>
-        </slide>
-        }
+    <h5>{{ title }}</h5>
+    <carousel class="carousel-container" 
+              [itemsPerSlide]="itemsPerSlide" 
+              [singleSlideOffset]="singleSlideOffset"
+              [startFromIndex]="0" 
+              [interval]="0" 
+              [noWrap]="noWrap" 
+              [showIndicators]="false">
+        <ng-container *ngFor="let item of itemsSlide; let index = index">
+            <slide class="carousel-item" 
+                   (mouseup)="onClick(item)" 
+                   (mouseenter)="setIsHover(index)"
+                   (mouseleave)="setIsHover(index)">
+                <img [src]="item.midia?.imgBig" alt="item.title">
+                <div class="carousel-caption" 
+                    [ngClass]="{'hover-item-caption': isHover && itemIndex === index}">
+                    <span class="title">{{ item.title }}</span>
+                    <p class="paragraph" *ngIf="isHover && itemIndex === index">
+                        {{ item.overview | limitText: 50 }}
+                    </p>
+                </div>
+            </slide>
+        </ng-container>
     </carousel>
 </section>

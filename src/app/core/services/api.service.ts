@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { tmdbAPI } from '../../../environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { filter, map, mergeMap, Observable, tap } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { map, Observable } from 'rxjs';
+import { tmdbAPI } from '../../../environment';
 import { IMidia, IMovie, IMovieInfo } from '../../shared/models/movie.interface';
 
 const baseUrl = {

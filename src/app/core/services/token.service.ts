@@ -5,23 +5,23 @@ import { Injectable } from '@angular/core';
 })
 export class TokenService {
 
-  private KEY:string = "key"
+  private KEY: string = "key"
 
   constructor() { }
 
-  setToken(token:string){
+  setToken(token: string) {
     sessionStorage.setItem(this.KEY, token)
   }
 
-  getToken():string{
-    return sessionStorage.getItem(this.KEY)?? ""
+  getToken(): string {
+    return sessionStorage.getItem(this.KEY) ?? ""
   }
 
-  isToken():boolean{
-    return !!this.getToken()
+  isToken(): boolean {
+    return !!sessionStorage.getItem(this.KEY);
   }
 
-  cleanToken(){
-    sessionStorage.clear()
+  cleanToken() {
+    sessionStorage.removeItem(this.KEY)
   }
 }
