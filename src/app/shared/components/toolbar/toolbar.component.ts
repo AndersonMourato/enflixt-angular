@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
-import { MatToolbarModule } from '@angular/material/toolbar'
-import { MatIconModule } from '@angular/material/icon'
-import { MatButtonModule } from '@angular/material/button'
-import { MatMenuModule } from '@angular/material/menu'
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
+import { TokenService } from '../../../core/services/token.service';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-toolbar',
@@ -12,18 +16,27 @@ import { Router } from '@angular/router';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
   ],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss'
 })
 export class ToolbarComponent {
 
-  constructor(private router: Router){
+  constructor(private router: Router, private tokenService: TokenService) {
 
   }
 
-  onLogin(){
+  onSair(){
+    this.tokenService.cleanToken();
     this.router.navigateByUrl("login")
+  }
+
+  onSearch(){
+    //const value = target.value;
+    //console.log(value);
   }
 }

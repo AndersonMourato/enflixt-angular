@@ -1,31 +1,35 @@
-.spacer {
-  flex: 1 1 auto;
-}
 
 mat-toolbar{
   background: none;
+  
+  button{
+    padding: 3px 20px;
+    height: auto;
+    margin-left: 14px;
+  }
+  .btn-ling{
+    background-color: #000000;
+  }
+  
+  .logo-svg svg{
+    width: 148px;
+    fill: rgb(229, 9, 20);
+  }
+
+  .spacer {
+    flex: 1 auto;
+    background-color: red;
+    min-width: 100px;
+    display: inline-block;
+  }
+
+  .search-field{
+    flex: 1 auto;
+  }
+
+  mat-form-field input{
+    color: white !important;
+  }
+  
 }
 
-mat-toolbar button{
-  padding: 3px 20px;
-  height: auto;
-  margin-left: 14px;
-}
-
-mat-toolbar .btn-entrar{
-  background-color: #ffffff;
-  color: #000000;
-  transition-duration: 2s !important;
-}
-mat-toolbar .btn-entrar:hover{
-  background-color: #ffffffa8 ;
-}
-
-.logo-svg svg{
-  width: 148px;
-  fill: rgb(229, 9, 20);
-}
-
-mat-toolbar .btn-ling{
-  background-color: #000000;
-}
