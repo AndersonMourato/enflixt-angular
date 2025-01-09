@@ -1,4 +1,3 @@
-import { Observable, Subscribable, Subscription } from "rxjs";
 
 export interface IMovieInfo {
     adult: boolean,
@@ -36,4 +35,11 @@ export interface IMidia{
     imgSmall: string,
     post: string,
     clip: string
+}
+
+export interface IProviders {
+    logo_path: string,
+    provider_id: number,
+    provider_name: string,
+    display_priority: number
 }

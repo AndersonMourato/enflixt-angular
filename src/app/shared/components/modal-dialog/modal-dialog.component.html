@@ -1,0 +1,38 @@
+
+<!-- <h2 mat-dialog-title> {{ movie.title }}</h2> -->
+<mat-dialog-content class="mat-typography">
+  <div class="content">
+    <img src="{{movie.midia?.post}}" alt="{{ movie.title}}">
+    <p class="text"> {{ movie.overview }} </p>
+  </div>
+  <mat-list>
+    <mat-list-item>
+      <span> Conteudo Adulto: {{ movie.adult ? '🔞SIM' : '✅NÃO' }} </span>
+    </mat-list-item>
+    <mat-list-item>
+      <span> Data de Lançamento: 🎯{{ movie.release_date }} </span>
+    </mat-list-item>
+    <mat-list-item>
+      <span> Votação_média: ⭐ {{ movie.vote_average }} </span>
+    </mat-list-item>
+  </mat-list>
+  
+  <mat-divider *ngIf="provedores.length > 0"></mat-divider>
+
+  <mat-list *ngIf="provedores.length > 0">
+    <h6> Disponivel em: </h6>
+    <div class="provid-content">
+      <mat-list-item *ngFor="let provedor of provedores">
+        <img class="logo" src="{{ provedor.logo_path }}" alt="{{ provedor.provider_name }}" title="{{ provedor.provider_name }}">
+        <span>{{ provedor.provider_name }}</span>
+      </mat-list-item>
+    </div>
+
+  </mat-list>
+
+  <mat-divider></mat-divider>
+  <div class="button-clip">
+    <a mat-flat-button href="{{ movie.midia?.clip }}" target="_blank"> Assistir Trailer </a>
+  </div>
+
+</mat-dialog-content>

@@ -1,0 +1,54 @@
+
+.mat-mdc-dialog-content::-webkit-scrollbar {
+    display: none;
+}
+
+.mat-mdc-dialog-content {
+    background-color: rgb(21, 21, 21);
+    color: white;
+    height: 100%;
+    max-height: 90vh;
+
+    .button-clip{
+        display: flex;
+        width: 100%;
+        margin: 10px auto;
+        justify-content: center;
+    }
+    
+    
+    mat-list-item .logo {
+        padding: 5px;
+    }
+    
+    span{
+        color: white !important;
+    }
+    
+    .content{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        img{
+            max-height: 65vh;
+            margin-bottom: 15px;
+            text-align: center;
+            object-fit: contain;
+        }
+    }
+
+}    
+
+.provid-content {
+    display: flex;
+    flex-wrap: wrap;
+
+    mat-list-item {
+        flex: 1 1 50%;
+        max-width: 400px;
+        width: 100%;
+        margin-bottom: 7px;
+    }
+}

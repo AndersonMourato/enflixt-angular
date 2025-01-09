@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { tmdbAPI } from '../../../environment';
-import { IMidia, IMovie, IMovieInfo } from '../../shared/models/movie.interface';
+import { IMidia, IMovie, IMovieInfo, IProviders } from '../../shared/models/movie.interface';
 
 const baseUrl = {
   api: 'https://api.themoviedb.org/3',
@@ -42,9 +42,31 @@ export class APIService {
     return this.http.get<any>(`${baseUrl.api}/search/movie?query=${search}`, { params: params, headers: this.getHeaders() })
   }
 
-  getProvidersById(id: number): Observable<any> {
+  getProvidersById(id: number): Observable<IProviders[]> {
     return this.http.get<any>(`${baseUrl.api}/movie/${id}/watch/providers`, { params: params, headers: this.getHeaders() })
-  }
+    .pipe(map(resp => {
+      if(resp.results.BR){
+        return resp.results.BR.rent || resp.results.BR.buy || resp.results.BR.flatrate
+      }
+      else if(resp.results.US){
+        return resp.results.US.rent || resp.results.US.buy || resp.results.US.flatrate
+      }
+      else{
+        return []
+        }
+      }))
+      .pipe(map((resp: any) => {
+        return resp.map((provider: IProviders) => {
+        return {
+          logo_path: `${baseUrl.image}45${provider.logo_path}`,
+          provider_id: provider.provider_id,
+          provider_name: provider.provider_name,
+          display_priority: provider.display_priority
+        }
+        });
+      }));
+      }
+
 
   getMidia(movieInfo: IMovieInfo): Observable<IMidia> {
     const midia: IMidia = {
