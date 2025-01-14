@@ -38,8 +38,9 @@ export class APIService {
     return this.http.get<any>(`${baseUrl.api}/movie/${id}/videos`, { params: params, headers: this.getHeaders() })
   }
 
-  getByDescricao(search: string): Observable<any> {
+  getByDescricao(search: string): Observable<IMovieInfo[]> {
     return this.http.get<any>(`${baseUrl.api}/search/movie?query=${search}`, { params: params, headers: this.getHeaders() })
+    .pipe(map(resp => resp.results))
   }
 
   getProvidersById(id: number): Observable<IProviders[]> {
