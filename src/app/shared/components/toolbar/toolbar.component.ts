@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TokenService } from '../../../core/services/token.service';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { APIService } from '../../../core/services/api.service';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { Router } from '@angular/router';
+import { TokenService } from '../../../core/services/token.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -22,7 +22,8 @@ import { APIService } from '../../../core/services/api.service';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
   ],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss'
@@ -30,24 +31,19 @@ import { APIService } from '../../../core/services/api.service';
 export class ToolbarComponent implements OnInit {
 
   searchForm!: FormGroup
-  paramsUrl!: string;
+  @Output() searchData: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private tokenService: TokenService) {}
-
+  constructor(
+    private router: Router, 
+    private tokenService: TokenService
+  ) {
+    
+  }
+  
   ngOnInit(){
     this.searchForm = new FormGroup({
       search: new FormControl('')
-    })
-
-    this.activatedRoute.params.subscribe(params => {
-      this.paramsUrl = params['search'];
-    })
-
-    if(this.paramsUrl){
-      this.searchForm.setValue({
-        search: this.paramsUrl
-      });
-    }
+    });
   }
 
   onSair(){
@@ -57,11 +53,15 @@ export class ToolbarComponent implements OnInit {
 
   onSearch(){
     const value = this.searchForm.value.search;
-    this.router.navigate(['filmes', value]);
+    this.router.navigateByUrl('filmes');
   }
 
   onHome(){
     this.router.navigateByUrl("home");
+  }
+
+  get isLoged(): boolean {
+    return this.tokenService.isToken();
   }
 
 }

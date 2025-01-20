@@ -7,7 +7,6 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { forkJoin, map, mergeMap } from 'rxjs';
 import { APIService } from '../../core/services/api.service';
 import { SectionCarouselComponent } from '../../shared/components/section-carousel/section-carousel.component';
-import { ToolbarComponent } from '../../shared/components/toolbar/toolbar.component';
 import { IMovieInfo } from '../../shared/models/movie.interface';
 
 
@@ -15,7 +14,6 @@ import { IMovieInfo } from '../../shared/models/movie.interface';
   selector: 'app-home',
   standalone: true,
   imports: [
-    ToolbarComponent,
     SectionCarouselComponent,
     MatCardModule,
     MatSliderModule,

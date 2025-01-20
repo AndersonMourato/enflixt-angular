@@ -1,17 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import Swal from 'sweetalert2';
 import { AutenticacaoService } from '../../core/services/autenticacao.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ModelsModule } from '../../shared/shared.module';
-import Swal from 'sweetalert2'
 import { TokenService } from '../../core/services/token.service';
 import { BackgroundImgComponent } from "../../shared/components/background-img/background-img.component";
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ModelsModule, BackgroundImgComponent],
+  imports: [BackgroundImgComponent, MatCardModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, CommonModule, MatButtonModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

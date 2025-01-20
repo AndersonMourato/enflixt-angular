@@ -1,7 +1,5 @@
 <div class="container-full">
     <section class="home">
-        <app-toolbar></app-toolbar>
-
         <div class="carousel-container">
             <carousel>
                 <ng-container *ngFor="let item of sliders; let i = index">
@@ -16,7 +14,6 @@
             </carousel>
         </div>
     </section>
-
     <app-section-carousel title="Últimos Lançamentos" [itemsSlide]="moviesLancamentos" [itemsPerSlide]="itemsPerSlide"></app-section-carousel>
     <app-section-carousel title="Mais Populares" [itemsSlide]="moviesPopular"  [itemsPerSlide]="itemsPerSlide"></app-section-carousel>
 </div>

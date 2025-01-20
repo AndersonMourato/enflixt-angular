@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import Swal from 'sweetalert2';
 import { AutenticacaoService } from '../../core/services/autenticacao.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ModelsModule } from '../../shared/shared.module';
-import Swal from 'sweetalert2'
 import { BackgroundImgComponent } from "../../shared/components/background-img/background-img.component";
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [ModelsModule, BackgroundImgComponent],
+  imports: [BackgroundImgComponent, MatCardModule, MatInputModule, MatFormFieldModule, ReactiveFormsModule, MatButtonModule, RouterModule],
   templateUrl: './cadastro.component.html',
   styleUrl: './cadastro.component.scss'
 })
