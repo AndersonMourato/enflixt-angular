@@ -1,57 +1,35 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { ActivatedRoute } from '@angular/router';
-import { forkJoin, map, mergeMap } from 'rxjs';
-import { APIService } from '../../core/services/api.service';
+import { ToolbarComponent } from "../../shared/components/toolbar/toolbar.component";
 import { IMovieInfo } from '../../shared/models/movie.interface';
+import { ActivatedRoute, Route } from '@angular/router';
+import { map } from 'rxjs';
+import { Router } from 'express';
 
 
 @Component({
   selector: 'app-search-filmes',
   standalone: true,
-  imports: [CommonModule, MatGridListModule],
+  imports: [CommonModule, MatGridListModule, ToolbarComponent],
   templateUrl: './search-filmes.component.html',
   styleUrl: './search-filmes.component.scss'
 })
-export class SearchFilmesComponent implements OnInit, OnChanges {
+export class SearchFilmesComponent implements OnInit {
 
-  search!: string;
-  movies!: IMovieInfo[];
+  movies: IMovieInfo[] = []
+  search: string = ''
 
-  constructor(private route: ActivatedRoute, private serviceAPI: APIService) { }
+  constructor() { }
 
-  ngOnInit(): void {
-    const value = this.route.snapshot.paramMap.get('search');
-    this.search = value ? value : '';
-
-    if (this.search) {
-      this.serviceAPI.getByDescricao(this.search).pipe(
-        mergeMap((movies: IMovieInfo[]) => {
-          const moviesWithMidias$ = movies.map((movie) => {
-
-            return this.serviceAPI.getMidia(movie).pipe(
-              map((midia: any) => ({
-                ...movie,
-                midia: midia
-              }))
-            );
-          });
-
-          // Combina todos os Observables em um único Observable
-          return forkJoin(moviesWithMidias$);
-        }
-        )).subscribe({
-          next: (movies) => {
-            this.movies = movies;
-          },
-          error: (err) => console.error('Erro ao buscar mídias:', err)
-        })
-    }
+  ngOnInit() {
+    this.movies = history.state.data;
+    this.search = history.state.search;
   }
 
-
-  ngOnChanges(changes: SimpleChanges): void {
+  onChildeSearch(event: { data: IMovieInfo[], search: string }) {
+    this.movies = event.data;
+    this.search = event.search;
   }
 
 }

@@ -8,12 +8,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [BackgroundImgComponent, MatCardModule, MatInputModule, MatFormFieldModule, ReactiveFormsModule, MatButtonModule, RouterModule],
+  imports: [BackgroundImgComponent, MatCardModule, MatInputModule, MatFormFieldModule, ReactiveFormsModule, MatButtonModule, RouterModule, CommonModule],
   templateUrl: './cadastro.component.html',
   styleUrl: './cadastro.component.scss'
 })

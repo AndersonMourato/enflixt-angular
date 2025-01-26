@@ -8,6 +8,7 @@ import { forkJoin, map, mergeMap } from 'rxjs';
 import { APIService } from '../../core/services/api.service';
 import { SectionCarouselComponent } from '../../shared/components/section-carousel/section-carousel.component';
 import { IMovieInfo } from '../../shared/models/movie.interface';
+import { ToolbarComponent } from "../../shared/components/toolbar/toolbar.component";
 
 
 @Component({
@@ -18,8 +19,9 @@ import { IMovieInfo } from '../../shared/models/movie.interface';
     MatCardModule,
     MatSliderModule,
     CarouselModule,
-    CommonModule
-  ],
+    CommonModule,
+    ToolbarComponent
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

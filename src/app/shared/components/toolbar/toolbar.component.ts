@@ -10,6 +10,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 import { TokenService } from '../../../core/services/token.service';
+import { IMovieInfo } from '../../models/movie.interface';
+import { APIService } from '../../../core/services/api.service';
+import { forkJoin, map, mergeMap } from 'rxjs';
 
 @Component({
   selector: 'app-toolbar',
@@ -31,37 +34,51 @@ import { TokenService } from '../../../core/services/token.service';
 export class ToolbarComponent implements OnInit {
 
   searchForm!: FormGroup
-  @Output() searchData: EventEmitter<string> = new EventEmitter<string>();
+  @Output() searchMovies = new EventEmitter<{ data: IMovieInfo[], search: string }>();
 
   constructor(
-    private router: Router, 
-    private tokenService: TokenService
+    private router: Router,
+    private tokenService: TokenService,
+    private serviceAPI: APIService
   ) {
-    
+
   }
-  
-  ngOnInit(){
+
+  ngOnInit() {
     this.searchForm = new FormGroup({
       search: new FormControl('')
     });
   }
 
-  onSair(){
+  onSair() {
     this.tokenService.cleanToken();
     this.router.navigateByUrl("login");
   }
 
-  onSearch(){
-    const value = this.searchForm.value.search;
-    this.router.navigateByUrl('filmes');
+  onSearch() {
+    const value: string = this.searchForm.value.search;
+    this.serviceAPI.getByDescricao(value).pipe(
+      mergeMap((movies: IMovieInfo[]) => {
+        const moviesWithMidias$ = movies.map((movie) => {
+          return this.serviceAPI.getMidia(movie).pipe(
+            map((midia: any) => ({
+              ...movie,
+              midia: midia
+            }))
+          );
+        });
+
+        // Combina todos os Observables em um único Observable
+        return forkJoin(moviesWithMidias$);
+      })
+    ).subscribe((moviesWithMidias) => {
+      this.router.navigate(['filmes'], { state: { data: moviesWithMidias, search: value } });
+      this.searchMovies.emit({ data: moviesWithMidias, search: value });
+    });
   }
 
-  onHome(){
+  onHome() {
     this.router.navigateByUrl("home");
-  }
-
-  get isLoged(): boolean {
-    return this.tokenService.isToken();
   }
 
 }

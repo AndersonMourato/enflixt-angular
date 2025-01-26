@@ -1,26 +1,26 @@
-<div class="container-full">
-    <section class="filmes">
-
-        <div class="container">
-            <div class="row">
-                <div class="col-12" *ngIf="!!search">
+<app-toolbar
+    (searchMovies)="onChildeSearch($event)"
+>
+</app-toolbar>
+<section class="filmes">
+    <div class="container">
+        <div class="row">
+            <div class="col-12" *ngIf="!!search">
+            </div>
+        </div>
+    </div>
+    
+    <mat-grid-list cols="1">
+        
+        <h4 class="searchText"> <span>Resultado da busca por:</span> {{ search }} </h4>
+        <div class="content-films">
+            <div class="filme" *ngFor="let movie of movies">
+                <img [src]="movie.midia?.post" [alt]="movie.title">
+                <div class="detail">
+                    <h5>{{ movie.title }}</h5>
+                    <span>⭐{{ movie.vote_average }}</span>
                 </div>
             </div>
         </div>
-        
-        <mat-grid-list cols="1">
-            <h4> Resultado da busca por: {{ search }} </h4>
-
-            <div class="content-films">
-                <div class="filme" *ngFor="let movie of movies">
-                    <img [src]="movie.midia?.post" [alt]="movie.title">
-                    <div class="detail">
-                        <h5>{{ movie.title }}</h5>
-                        <span>⭐{{ movie.vote_average }}</span>
-                    </div>
-                </div>
-            </div>
-        </mat-grid-list>
-          
-    </section>
-</div>
+    </mat-grid-list>
+</section>
