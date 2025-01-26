@@ -21,6 +21,12 @@ const params = new HttpParams()
 })
 export class APIService {
 
+  categoriasMap = {
+    acao: 28,
+    comedia: 35,
+    terror: 27,
+    romance: 10749,
+  };
 
   constructor(private http: HttpClient) { }
 
