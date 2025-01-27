@@ -1,5 +1,6 @@
 <app-toolbar
     (searchMovies)="onChildeSearch($event)"
+    (isLoading)="isLoadingEvent($event)"
 >
 </app-toolbar>
 <section class="filmes">
@@ -16,7 +17,7 @@
         <div class="content-films">
             <div class="filme" *ngFor="let movie of movies">
                 <img [src]="movie.midia?.post" [alt]="movie.title">
-                <div class="detail">
+                <div class="detail" (click)="openModal(movie)">
                     <h5>{{ movie.title }}</h5>
                     <span>⭐{{ movie.vote_average }}</span>
                 </div>
@@ -31,4 +32,8 @@
         </mat-paginator>
 
     </mat-grid-list>
+
+    <div class="loading" *ngIf="isLoading">
+        <mat-spinner></mat-spinner>
+    </div>
 </section>

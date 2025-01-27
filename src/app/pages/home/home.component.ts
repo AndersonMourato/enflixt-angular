@@ -82,8 +82,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
 
-    //alert('pendente: corrigir bug do imput buscar, implementar o modal no resultado da busca, melhorar layouy do paginator, verificar responsividade, fazer readme')
-
     this.updateItemsPerSlide()
 
     forkJoin({
@@ -101,8 +99,15 @@ export class HomeComponent implements OnInit {
       this.moviesComedia = comedia.results;
       this.moviesTerror = terror.results;
     });
+    
+    // this.api.getLancamentos().subscribe((resp) => this.moviesLancamentos = resp.results);
+    // this.api.getPopulars().subscribe((resp) => this.moviesPopular = resp.results);
+    // this.api.getByGenero(generosMovies.acao).subscribe((resp) => this.moviesPopular = resp.results);
+    // this.api.getByGenero(generosMovies.romance).subscribe((resp) => this.moviesPopular = resp.results);
+    // this.api.getByGenero(generosMovies.comedia).subscribe((resp) => this.moviesPopular = resp.results);
+    // this.api.getByGenero(generosMovies.terror).subscribe((resp) => this.moviesPopular = resp.results);
+    
   }
-
 
 }
 

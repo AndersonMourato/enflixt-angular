@@ -34,13 +34,14 @@ export class ToolbarComponent implements OnInit {
 
   searchForm!: FormGroup
   @Output() searchMovies = new EventEmitter<{ data: IResult, search: string }>();
+  @Output() isLoading = new EventEmitter<boolean>();
 
   constructor(
     private router: Router,
     private tokenService: TokenService,
     private serviceAPI: APIService
   ) {
-
+    this.isLoading.emit(false);
   }
 
   ngOnInit() {
@@ -55,11 +56,13 @@ export class ToolbarComponent implements OnInit {
   }
 
   onSearch() {
+    this.isLoading.emit(true);
     const value: string = this.searchForm.value.search;
     this.serviceAPI.searchByDescricao(value, 1)
     .subscribe((resp: IResult) => {
       this.router.navigate(['filmes'], { state: { data: resp, search: value } });
       this.searchMovies.emit({ data: resp, search: value });
+      this.isLoading.emit(false);
     });
   }
 

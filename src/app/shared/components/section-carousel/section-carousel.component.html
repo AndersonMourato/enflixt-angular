@@ -9,7 +9,7 @@
               [showIndicators]="false">
         <ng-container *ngFor="let item of itemsSlide; let index = index">
             <slide class="carousel-item" 
-                   (mouseup)="onClick(item)" 
+                   (mouseup)="openModal(item)" 
                    (mouseenter)="setIsHover(index)"
                    (mouseleave)="setIsHover(index)">
                 <img [src]="item.midia?.imgBig" alt="item.title">
@@ -23,5 +23,8 @@
 
             </slide>
         </ng-container>
+        <div class="loading" *ngIf="isLoading">
+            <mat-spinner></mat-spinner>
+        </div>
     </carousel>
 </section>
