@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatSliderModule } from '@angular/material/slider';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
-import { forkJoin, map, mergeMap } from 'rxjs';
 import { APIService } from '../../core/services/api.service';
 import { SectionCarouselComponent } from '../../shared/components/section-carousel/section-carousel.component';
-import { IMovieInfo } from '../../shared/models/movie.interface';
 import { ToolbarComponent } from "../../shared/components/toolbar/toolbar.component";
+import { generosMovies } from '../../shared/enums/generosMovies.enum';
+import { IMovieInfo } from '../../shared/models/movie.interface';
+import { forkJoin } from 'rxjs';
 
 
 @Component({
@@ -21,7 +22,7 @@ import { ToolbarComponent } from "../../shared/components/toolbar/toolbar.compon
     CarouselModule,
     CommonModule,
     ToolbarComponent
-],
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -29,6 +30,10 @@ export class HomeComponent implements OnInit {
 
   moviesPopular!: IMovieInfo[]
   moviesLancamentos!: IMovieInfo[]
+  moviesAcao!: IMovieInfo[]
+  moviesComedia!: IMovieInfo[]
+  moviesRomance!: IMovieInfo[]
+  moviesTerror!: IMovieInfo[]
 
   itemsPerSlide = 3;
 
@@ -37,7 +42,7 @@ export class HomeComponent implements OnInit {
     {
       image: "https://assets.nflxext.com/ffe/siteui/vlv3/dadb130d-463b-4e5b-b335-038ed912059e/web_tall_panel/BR-pt-20241118-TRIFECTA-perspective_f141b4d0-96ff-47bf-ab8a-b84ca6027702_large.jpg",
       title: "Filmes, séries e muito mais, sem limites",
-      text: "A partir de R$ 20,90. Cancele quando quiser."
+      text: "Assista o trailer agora mesmo"
     },
     {
       image: "https://occ-0-2810-3852.1.nflxso.net/dnm/api/v6/Z-WHgqd_TeJxSuha8aZ5WpyLcX8/AAAABbgVm7SJ1X-43iSACc9S4yG4fBJlBBWrte8NAH1Kg3_KXQPXEnv-LRj5z3zbEYQzCzMBhJK2WKdYPS0dffkUyXJBS9-ELJ_s5KlW.webp?r=22c",
@@ -54,12 +59,12 @@ export class HomeComponent implements OnInit {
 
   constructor(private api: APIService) { }
 
-  
+
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.updateItemsPerSlide();
   }
-  
+
   updateItemsPerSlide() {
     const width = window.innerWidth;
     if (width < 576) {
@@ -78,54 +83,21 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.updateItemsPerSlide()
 
-    this.api.getPopulars()
-      .pipe(
-        mergeMap((movies: IMovieInfo[]) => {
-          const moviesWithMidias$ = movies.map((movie) =>
-            this.api.getMidia(movie).pipe(
-              map((midia) => ({
-                ...movie,
-                midia: midia
-              }))
-            )
-          );
-
-          // Combina todos os Observables em um único Observable
-          return forkJoin(moviesWithMidias$);
-        })
-      )
-      .subscribe({
-        next: (movies) => {
-          this.moviesPopular = movies;
-        },
-        error: (err) => console.error('Erro ao buscar mídias:', err)
-      })
-
-
-
-      this.api.getLancamentos()
-      .pipe(
-        mergeMap((movies: IMovieInfo[]) => {
-          const moviesWithMidias$ = movies.map((movie) =>
-            this.api.getMidia(movie).pipe(
-              map((midia) => ({
-                ...movie,
-                midia: midia
-              }))
-            )
-          );
-
-          // Combina todos os Observables em um único Observable
-          return forkJoin(moviesWithMidias$);
-        })
-      )
-      .subscribe({
-        next: (movies) => {
-          this.moviesLancamentos = movies;
-        },
-        error: (err) => console.error('Erro ao buscar mídias:', err)
-      })
-
+    forkJoin({
+      lancamentos: this.api.getLancamentos(),
+      populars: this.api.getPopulars(),
+      acao: this.api.getByGenero(generosMovies.acao),
+      romance: this.api.getByGenero(generosMovies.romance),
+      comedia: this.api.getByGenero(generosMovies.comedia),
+      terror: this.api.getByGenero(generosMovies.terror)
+    }).subscribe(({ lancamentos, populars, acao, romance, comedia, terror }) => {
+      this.moviesLancamentos = lancamentos.results;
+      this.moviesPopular = populars.results;
+      this.moviesAcao = acao.results;
+      this.moviesRomance = romance.results;
+      this.moviesComedia = comedia.results;
+      this.moviesTerror = terror.results;
+    });
   }
 
 }

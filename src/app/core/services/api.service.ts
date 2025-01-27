@@ -21,23 +21,69 @@ const params = new HttpParams()
 })
 export class APIService {
 
-  categoriasMap = {
-    acao: 28,
-    comedia: 35,
-    terror: 27,
-    romance: 10749,
-  };
-
   constructor(private http: HttpClient) { }
 
-  getPopulars(): Observable<IMovieInfo[]> {
+  getPopulars(): Observable<IResult> {
     return this.http.get<any>(`${baseUrl.api}/movie/popular`, { params: params, headers: this.getHeaders() })
-    .pipe(map(resp => resp.results))
+    .pipe(
+      mergeMap((resp) => {
+        const moviesWithMidias$ = resp.results.map((movie: IMovieInfo) => {
+          return this.getMidia(movie).pipe(
+            map((midia: any) => ({
+              ...movie,
+              midia: midia
+            }))
+          );
+        });
+
+        // Combina todos os Observables em um único Observable
+        return forkJoin(moviesWithMidias$).pipe(
+          map((results) => ({ ...resp, results }))
+        );
+      })
+    )
   }
 
-  getLancamentos(): Observable<IMovieInfo[]> {
+  getLancamentos(): Observable<IResult> {
     return this.http.get<any>(`${baseUrl.api}/movie/now_playing`, { params: params, headers: this.getHeaders() })
-    .pipe(map(resp => resp.results))
+    .pipe(
+      mergeMap((resp) => {
+        const moviesWithMidias$ = resp.results.map((movie: IMovieInfo) => {
+          return this.getMidia(movie).pipe(
+            map((midia: any) => ({
+              ...movie,
+              midia: midia
+            }))
+          );
+        });
+
+        // Combina todos os Observables em um único Observable
+        return forkJoin(moviesWithMidias$).pipe(
+          map((results) => ({ ...resp, results }))
+        );
+      })
+    )
+  }
+
+  getByGenero(idGenero: number): Observable<IResult> {
+    return this.http.get<any>(`${baseUrl.api}/discover/movie?with_genres=${idGenero}`, { params: params, headers: this.getHeaders() })
+    .pipe(
+      mergeMap((resp) => {
+        const moviesWithMidias$ = resp.results.map((movie: IMovieInfo) => {
+          return this.getMidia(movie).pipe(
+            map((midia: any) => ({
+              ...movie,
+              midia: midia
+            }))
+          );
+        });
+
+        // Combina todos os Observables em um único Observable
+        return forkJoin(moviesWithMidias$).pipe(
+          map((results) => ({ ...resp, results }))
+        );
+      })
+    )
   }
 
   getById(id: number): Observable<any> {
@@ -61,7 +107,6 @@ export class APIService {
         return forkJoin(moviesWithMidias$).pipe(
           map((results) => ({ ...resp, results }))
         );
-
       })
     )
   }
