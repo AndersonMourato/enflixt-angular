@@ -22,5 +22,13 @@
                 </div>
             </div>
         </div>
+
+        <mat-paginator 
+            [length]="length"
+            [pageSize]="pageSize"
+            (page)="onNextPage($event)"
+            aria-label="Select page">
+        </mat-paginator>
+
     </mat-grid-list>
 </section>

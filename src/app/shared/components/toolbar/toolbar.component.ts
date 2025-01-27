@@ -9,10 +9,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
-import { TokenService } from '../../../core/services/token.service';
-import { IMovieInfo } from '../../models/movie.interface';
-import { APIService } from '../../../core/services/api.service';
 import { forkJoin, map, mergeMap } from 'rxjs';
+import { APIService } from '../../../core/services/api.service';
+import { TokenService } from '../../../core/services/token.service';
+import { IMovieInfo, IResult } from '../../models/movie.interface';
 
 @Component({
   selector: 'app-toolbar',
@@ -34,7 +34,7 @@ import { forkJoin, map, mergeMap } from 'rxjs';
 export class ToolbarComponent implements OnInit {
 
   searchForm!: FormGroup
-  @Output() searchMovies = new EventEmitter<{ data: IMovieInfo[], search: string }>();
+  @Output() searchMovies = new EventEmitter<{ data: IResult, search: string }>();
 
   constructor(
     private router: Router,
@@ -57,23 +57,10 @@ export class ToolbarComponent implements OnInit {
 
   onSearch() {
     const value: string = this.searchForm.value.search;
-    this.serviceAPI.getByDescricao(value).pipe(
-      mergeMap((movies: IMovieInfo[]) => {
-        const moviesWithMidias$ = movies.map((movie) => {
-          return this.serviceAPI.getMidia(movie).pipe(
-            map((midia: any) => ({
-              ...movie,
-              midia: midia
-            }))
-          );
-        });
-
-        // Combina todos os Observables em um único Observable
-        return forkJoin(moviesWithMidias$);
-      })
-    ).subscribe((moviesWithMidias) => {
-      this.router.navigate(['filmes'], { state: { data: moviesWithMidias, search: value } });
-      this.searchMovies.emit({ data: moviesWithMidias, search: value });
+    this.serviceAPI.searchByDescricao(value, 1)
+    .subscribe((resp: IResult) => {
+      this.router.navigate(['filmes'], { state: { data: resp, search: value } });
+      this.searchMovies.emit({ data: resp, search: value });
     });
   }
 

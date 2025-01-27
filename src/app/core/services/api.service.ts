@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { forkJoin, map, mergeMap, Observable } from 'rxjs';
 import { tmdbAPI } from '../../../environment';
-import { IMidia, IMovie, IMovieInfo, IProviders } from '../../shared/models/movie.interface';
+import { IMidia, IMovie, IMovieInfo, IProviders, IResult } from '../../shared/models/movie.interface';
 
 const baseUrl = {
   api: 'https://api.themoviedb.org/3',
@@ -44,9 +44,26 @@ export class APIService {
     return this.http.get<any>(`${baseUrl.api}/movie/${id}/videos`, { params: params, headers: this.getHeaders() })
   }
 
-  getByDescricao(search: string): Observable<IMovieInfo[]> {
-    return this.http.get<any>(`${baseUrl.api}/search/movie?query=${search}`, { params: params, headers: this.getHeaders() })
-    .pipe(map(resp => resp.results))
+  searchByDescricao(search: string, page: number): Observable<IResult> {
+    return this.http.get<any>(`${baseUrl.api}/search/movie?query=${search}&page=${page}`, { params: params, headers: this.getHeaders() })
+    .pipe(
+      mergeMap((resp) => {
+        const moviesWithMidias$ = resp.results.map((movie: IMovieInfo) => {
+          return this.getMidia(movie).pipe(
+            map((midia: any) => ({
+              ...movie,
+              midia: midia
+            }))
+          );
+        });
+
+        // Combina todos os Observables em um único Observable
+        return forkJoin(moviesWithMidias$).pipe(
+          map((results) => ({ ...resp, results }))
+        );
+
+      })
+    )
   }
 
   getProvidersById(id: number): Observable<IProviders[]> {

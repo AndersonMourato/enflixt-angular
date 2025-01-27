@@ -43,3 +43,10 @@ export interface IProviders {
     provider_name: string,
     display_priority: number
 }
+
+export interface IResult{
+    page: number,
+    results: IMovieInfo[],
+    total_pages: number,
+    total_results: number
+}
