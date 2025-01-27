@@ -9,10 +9,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
-import { forkJoin, map, mergeMap } from 'rxjs';
 import { APIService } from '../../../core/services/api.service';
 import { TokenService } from '../../../core/services/token.service';
-import { IMovieInfo, IResult } from '../../models/movie.interface';
+import { IResult } from '../../models/movie.interface';
 
 @Component({
   selector: 'app-toolbar',

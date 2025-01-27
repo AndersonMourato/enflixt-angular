@@ -9,7 +9,7 @@
     <span class="spacer"></span>
     <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
       <div class="group-input">
-        <input formControlName="search" type="text">
+        <input formControlName="search" type="text" required>
         <label class=>Buscar</label>
       </div>  
     </form>

@@ -81,6 +81,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    //alert('pendente: corrigir bug do imput buscar, implementar o modal no resultado da busca, melhorar layouy do paginator, verificar responsividade, fazer readme')
+
     this.updateItemsPerSlide()
 
     forkJoin({
@@ -99,6 +102,7 @@ export class HomeComponent implements OnInit {
       this.moviesTerror = terror.results;
     });
   }
+
 
 }
 
