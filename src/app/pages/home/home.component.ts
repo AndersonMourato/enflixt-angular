@@ -10,6 +10,7 @@ import { ToolbarComponent } from "../../shared/components/toolbar/toolbar.compon
 import { generosMovies } from '../../shared/enums/generosMovies.enum';
 import { IMovieInfo } from '../../shared/models/movie.interface';
 import { forkJoin } from 'rxjs';
+import { FooterComponent } from "../../shared/components/footer/footer.component";
 
 
 @Component({
@@ -21,8 +22,9 @@ import { forkJoin } from 'rxjs';
     MatSliderModule,
     CarouselModule,
     CommonModule,
-    ToolbarComponent
-  ],
+    ToolbarComponent,
+    FooterComponent
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

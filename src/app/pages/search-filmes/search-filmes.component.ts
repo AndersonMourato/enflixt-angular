@@ -8,6 +8,7 @@ import { APIService } from '../../core/services/api.service';
 import { ModalDialogComponent } from '../../shared/components/modal-dialog/modal-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FooterComponent } from "../../shared/components/footer/footer.component";
 
 
 
@@ -15,7 +16,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-search-filmes',
   standalone: true,
-  imports: [CommonModule, MatGridListModule, ToolbarComponent, MatPaginatorModule, MatProgressSpinnerModule],
+  imports: [CommonModule, MatGridListModule, ToolbarComponent, MatPaginatorModule, MatProgressSpinnerModule, FooterComponent],
   templateUrl: './search-filmes.component.html',
   styleUrl: './search-filmes.component.scss'
 })

@@ -10,7 +10,8 @@
     <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
       <div class="group-input">
         <input formControlName="search" type="text" required>
-        <label class=>Buscar</label>
+        <label> <mat-icon class="label-icon">search</mat-icon> <span class="label-text">Buscar</span> </label>
+        
       </div>  
     </form>
     

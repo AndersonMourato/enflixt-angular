@@ -83,3 +83,9 @@ mat-paginator{
     background-color: #ffffff40;
     margin-top: 1rem;
 }
+
+@media screen and (max-width: 460px) {
+    .filme{
+        max-width: 150px;
+    }
+}
