@@ -1,4 +1,4 @@
-<h3>Sobre o Projeto Enflixt</h3>
+# Sobre o Projeto Enflixt
 <p>
     o <strong>Enflixt</strong> é uma aplicação web desenvolvida para praticar e exercer conhecimentos. É uma aplicação sobre filmes e séries.
     Com objetivo de oferecer uma plataforma intuitiva e rica em conteúdo para os amantes de cinema e
@@ -16,7 +16,7 @@
     intuitiva, o usuário pode explorar o mundo do entretenimento de forma prática e interativa.
 </p>
 
-<h5>Tecnologias Utilizadas</h5>
+## Tecnologias Utilizadas
 <p>
     <strong>Angular:</strong>
     O framework Angular para construir a interface do usuário de forma dinâmica e responsiva.
@@ -43,11 +43,9 @@
     <strong>RxJS:</strong>
     A biblioteca RxJS é usada para gerenciar operações assíncronas e eventos de forma reativa.
 </p>
-</div>
 
 
-<div class="content">
-<h5>Bibliotecas Adicionais</h5>
+## Bibliotecas Adicionais
 <p>
     <strong>Angular Material:</strong>
     Utilizamos componentes do Angular Material para criar uma interface de usuário moderna e consistente.
@@ -64,7 +62,7 @@
 </p>
 
 
-# EnflixtAngular
+# Angular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.12.
 
