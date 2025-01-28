@@ -31,7 +31,6 @@ import { FooterComponent } from "../../shared/components/footer/footer.component
 export class HomeComponent implements OnInit {
 
   moviesPopular!: IMovieInfo[]
-  moviesLancamentos!: IMovieInfo[]
   moviesAcao!: IMovieInfo[]
   moviesComedia!: IMovieInfo[]
   moviesRomance!: IMovieInfo[]
@@ -87,27 +86,18 @@ export class HomeComponent implements OnInit {
     this.updateItemsPerSlide()
 
     forkJoin({
-      lancamentos: this.api.getLancamentos(),
       populars: this.api.getPopulars(),
       acao: this.api.getByGenero(generosMovies.acao),
       romance: this.api.getByGenero(generosMovies.romance),
       comedia: this.api.getByGenero(generosMovies.comedia),
       terror: this.api.getByGenero(generosMovies.terror)
-    }).subscribe(({ lancamentos, populars, acao, romance, comedia, terror }) => {
-      this.moviesLancamentos = lancamentos.results;
+    }).subscribe(({ populars, acao, romance, comedia, terror }) => {
       this.moviesPopular = populars.results;
       this.moviesAcao = acao.results;
       this.moviesRomance = romance.results;
       this.moviesComedia = comedia.results;
       this.moviesTerror = terror.results;
     });
-    
-    // this.api.getLancamentos().subscribe((resp) => this.moviesLancamentos = resp.results);
-    // this.api.getPopulars().subscribe((resp) => this.moviesPopular = resp.results);
-    // this.api.getByGenero(generosMovies.acao).subscribe((resp) => this.moviesPopular = resp.results);
-    // this.api.getByGenero(generosMovies.romance).subscribe((resp) => this.moviesPopular = resp.results);
-    // this.api.getByGenero(generosMovies.comedia).subscribe((resp) => this.moviesPopular = resp.results);
-    // this.api.getByGenero(generosMovies.terror).subscribe((resp) => this.moviesPopular = resp.results);
     
   }
 
