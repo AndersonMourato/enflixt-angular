@@ -16,6 +16,13 @@
     intuitiva, o usuário pode explorar o mundo do entretenimento de forma prática e interativa.
 </p>
 
+## Capturas de Telas
+<img src="https://github.com/AndersonMourato/enflixt-angular/blob/main/public/img/print%20(1).png?raw=true" alt="Print TELA"/>
+<img src="https://github.com/AndersonMourato/enflixt-angular/blob/main/public/img/print%20(2).png?raw=true" alt="Print TELA"/>
+<img src="https://github.com/AndersonMourato/enflixt-angular/blob/main/public/img/print%20(3).png?raw=true" alt="Print TELA"/>
+<img src="https://github.com/AndersonMourato/enflixt-angular/blob/main/public/img/print%20(4).png?raw=true" alt="Print TELA"/>
+<img src="https://github.com/AndersonMourato/enflixt-angular/blob/main/public/img/print%20(5).png?raw=true" alt="Print TELA"/>
+
 ## Tecnologias Utilizadas
 <p>
     <strong>Angular:</strong>
