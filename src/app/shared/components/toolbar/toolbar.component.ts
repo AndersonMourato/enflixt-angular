@@ -55,6 +55,10 @@ export class ToolbarComponent implements OnInit {
     this.router.navigateByUrl("login");
   }
 
+  onSobre() {
+    this.router.navigateByUrl("sobre");
+  }
+
   onSearch() {
     this.isLoading.emit(true);
     const value: string = this.searchForm.value.search;

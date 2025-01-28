@@ -18,7 +18,7 @@
     <button class="btn-menu" mat-flat-button [matMenuTriggerFor]="menu"> Menu  <mat-icon>arrow_drop_down</mat-icon></button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="onSair()"> Sair </button>
-      <button mat-menu-item> Sobre </button>
+      <button mat-menu-item (click)="onSobre()"> Sobre </button>
     </mat-menu>
     
   </mat-toolbar>
