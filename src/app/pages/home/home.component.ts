@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
   sliders = [
     {
       image: "https://assets.nflxext.com/ffe/siteui/vlv3/dadb130d-463b-4e5b-b335-038ed912059e/web_tall_panel/BR-pt-20241118-TRIFECTA-perspective_f141b4d0-96ff-47bf-ab8a-b84ca6027702_large.jpg",
-      title: "Filmes, séries e muito mais, sem limites",
+      title: "Filmes, séries e muito mais.",
       text: "Assista o trailer agora mesmo"
     },
     {
